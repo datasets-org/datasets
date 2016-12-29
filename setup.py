@@ -39,7 +39,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'datasets = dataset_cli:main',
-        ]
+            'datasets = datasets.dataset_cli:main',
+            ]
     }
 )
