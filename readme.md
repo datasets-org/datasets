@@ -51,13 +51,13 @@ ds = Datasets()
 
 ### Info
 Returns information about the data set identified by the UID. Second param - 
-[usage](##Usage log)
+[usage](#usage-log)
 ```python
 ds.info("8b88a424-dbd8-4032-8be7-a930a415b9a5", {"user": "tivvit"})
 ```
 ### Paths
 Returns list of paths where the data set may be found. Second param - 
-[usage](##Usage log)
+[usage](#usage-log)
 ```python
 ds.paths("8b88a424-dbd8-4032-8be7-a930a415b9a5", {"user": "tivvit"})
 # ["/data/a", "/data/b"]
