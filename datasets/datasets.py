@@ -15,7 +15,7 @@ class Datasets(object):
     def _user_server(self):
         expanded_path = os.path.expanduser(self.USER_CONF)
         if os.path.exists(expanded_path):
-            self.address = open(expanded_path).read()
+            self.address = "http://" + open(expanded_path).read()
 
     def info(self, id, usage={}):
         return requests.post(self.address + "/use/" + id, json=usage).json()
