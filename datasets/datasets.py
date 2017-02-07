@@ -8,7 +8,8 @@ def ensure_data(fn):
         self = args[0]
         if not self.data:
             id = kwargs["id"]
-            self.usage.update(kwargs["usage"])
+            if "usage" in kwargs:
+                self.usage.update(kwargs["usage"])
             self._load_data(id, usage=self.usage)
         return fn(*args, **kwargs)
 
