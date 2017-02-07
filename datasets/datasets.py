@@ -12,7 +12,7 @@ def ensure_data(fn):
                 self.usage.update(kwargs["usage"])
             self._load_data(id, usage=self.usage)
         return fn(*args, **kwargs)
-
+    decorator.__name__ = fn.__name__
     return decorator
 
 
@@ -31,7 +31,7 @@ class Datasets(object):
             self._load_data(id, usage=usage)
 
     def _load_data(self, id, usage={}):
-        self.data = requests.post("http://" + self.address + "/use/" + id, \
+        self.data = requests.post(self.address + "/use/" + id, \
                                   json=usage).json()
 
     def _user_server(self):
