@@ -7,9 +7,17 @@ def ensure_data(fn):
     def decorator(*args, **kwargs):
         self = args[0]
         if not self.data:
-            id = kwargs["id"]
+            if "id" in kwargs:
+                id = kwargs["id"]
+            elif len(args) > 1:
+                id = args[1] 
+            else:
+                raise TypeError("Datasets: You have to specify id")
+
             if "usage" in kwargs:
                 self.usage.update(kwargs["usage"])
+            elif len(args) > 2:
+                self.usage.update(args[2])
             self._load_data(id, usage=self.usage)
         return fn(*args, **kwargs)
     decorator.__name__ = fn.__name__
