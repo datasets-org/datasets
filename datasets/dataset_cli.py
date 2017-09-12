@@ -38,7 +38,7 @@ def _user_server():
 
 
 def _get_server():
-    return PROTOCOL + server + "/"
+    return PROTOCOL + server.strip() + "/"
 
 
 def generate(force=False):
