@@ -6,7 +6,7 @@ Running server (https://github.com/tivvit/datasets_server) is needed for this
 
 ## Install 
 ```sh
-pip install dataset
+pip install datasetstools
 ```
 
 ## CLI

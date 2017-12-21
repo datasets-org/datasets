@@ -5,7 +5,7 @@ from setuptools import setup
 requirements = [line.rstrip('\n') for line in open('requirements.txt')]
 
 setup(
-    name='dataset',
+    name='datasetstools',
     version='1.0.2',
     description='',
     long_description='Datasets tools',
@@ -22,7 +22,6 @@ setup(
         'License :: OSI Approved :: MIT License',
 
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
