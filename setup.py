@@ -2,11 +2,9 @@
 #  -*- coding: utf-8 -*-
 from setuptools import setup
 
-requirements = [line.rstrip('\n') for line in open('requirements.txt')]
-
 setup(
     name='datasetstools',
-    version='1.0.2',
+    version='1.0.3',
     description='',
     long_description='Datasets tools',
     url='',
@@ -30,7 +28,11 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
-    install_requires=requirements,
+    install_requires=[
+        "requests",
+        "six",
+        "pyYAML",
+    ],
     keywords='dataset management',
     packages=[
         "datasets",
