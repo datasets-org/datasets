@@ -6,7 +6,7 @@ Running server (https://github.com/tivvit/datasets_server) is needed for this
 
 ## Install 
 ```sh
-pip install git+https://github.com/tivvit/datasets
+pip install dataset
 ```
 
 ## CLI
