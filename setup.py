@@ -5,7 +5,7 @@ from setuptools import setup
 requirements = [line.rstrip('\n') for line in open('requirements.txt')]
 
 setup(
-    name='datasets',
+    name='dataset',
     version='1.0.2',
     description='',
     long_description='Datasets tools',
