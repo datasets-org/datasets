@@ -16,6 +16,7 @@ It is recommended to configure the server address first. You may always
 provide it with `-s`.
 
 #### config
+This is and interactive process
 ```sh
 datasets config
 Server address (example.com): localhost
