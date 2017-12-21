@@ -1,5 +1,6 @@
-import requests
 import os
+
+import requests
 import yaml
 
 
@@ -10,7 +11,7 @@ def ensure_data(fn):
             if "id" in kwargs:
                 id = kwargs["id"]
             elif len(args) > 1:
-                id = args[1] 
+                id = args[1]
             else:
                 raise TypeError("Datasets: You have to specify id")
 
@@ -20,6 +21,7 @@ def ensure_data(fn):
                 self.usage.update(args[2])
             self._load_data(id, usage=self.usage)
         return fn(*args, **kwargs)
+
     decorator.__name__ = fn.__name__
     return decorator
 

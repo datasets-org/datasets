@@ -2,7 +2,6 @@
 #  -*- coding: utf-8 -*-
 from setuptools import setup
 
-
 requirements = [line.rstrip('\n') for line in open('requirements.txt')]
 
 setup(
@@ -40,6 +39,6 @@ setup(
     entry_points={
         'console_scripts': [
             'datasets = datasets.dataset_cli:main',
-            ]
+        ]
     }
 )
