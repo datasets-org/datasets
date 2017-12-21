@@ -6,7 +6,7 @@ requirements = [line.rstrip('\n') for line in open('requirements.txt')]
 
 setup(
     name='datasets',
-    version='1.0.1',
+    version='1.0.2',
     description='',
     long_description='Datasets tools',
     url='',
