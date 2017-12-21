@@ -38,7 +38,7 @@ def _user_server():
 
 
 def _get_server():
-    return PROTOCOL + server + "/"
+    return PROTOCOL + server.strip() + "/"
 
 
 def generate(force=False):
@@ -59,6 +59,10 @@ def generate(force=False):
 
 def usages():
     pprint.pprint(_get_info()["usages"])
+
+
+def changelog():
+    pprint.pprint(_get_info()["changelog"])
 
 
 def info():
@@ -89,6 +93,7 @@ def main():
     usages_p = subparsers.add_parser("usages")
     scan_p = subparsers.add_parser("scan")
     config_p = subparsers.add_parser("config")
+    changes_p = subparsers.add_parser("changelog")
     args = parser.parse_args()
     _user_server()
     if args.server:
@@ -104,6 +109,9 @@ def main():
         scan()
     if args.cmd == "config":
         config()
+    if args.cmd == "changelog":
+        changelog()
+
 
 
 if __name__ == "__main__":
