@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='datasetstools',
-    version='1.0.3',
+    version='1.1.0',
     description='',
     long_description='Datasets tools',
     url='',
@@ -32,6 +32,7 @@ setup(
         "requests",
         "six",
         "pyYAML",
+        "datasets_lib>=1.2.0"
     ],
     keywords='dataset management',
     packages=[
