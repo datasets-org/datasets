@@ -2,8 +2,13 @@ import os
 
 import requests
 import yaml
+from confobj import ConfigDict
+from confobj import ConfigEnv
+from confobj import ConfigYaml
 from datasets_lib import Datasets as DatasetsLib
 from datasets_lib import DatasetsConfig
+
+from .utils import get_config_path
 
 
 def ensure_data(fn):
@@ -29,28 +34,22 @@ def ensure_data(fn):
 
 
 class Datasets(object):
-    def __init__(self, id=None, usage={}, conf={}):
-        # todo find conf
-        self.USER_CONF = "~/.datasets"
-        self.conf = conf
-        self.usage = usage
-        if "address" not in conf:
-            self._user_server()
+    def __init__(self, id=None, usage={}, conf={}, conf_path="~/.datasets"):
+        conf_path_exp = get_config_path(conf_path)
+        dict_conf = ConfigDict(conf)
+        if conf_path_exp:
+            config_order = (ConfigYaml(conf_path_exp), ConfigEnv(), dict_conf)
         else:
-            self.address = self.conf["address"]
-
-        self._ds = DatasetsLib()
+            config_order = (ConfigEnv(), dict_conf)
+        ds_cfg = DatasetsConfig(order=config_order)
+        self.usage = usage
+        self._ds = DatasetsLib(conf=ds_cfg)
         self.data = None
         if id:
             self._load_data(id, usage=usage)
 
     def _load_data(self, ds, id, usage={}):
         self.data = self._ds.use(id, usage)
-
-    def _user_server(self):
-        expanded_path = os.path.expanduser(self.USER_CONF)
-        if os.path.exists(expanded_path):
-            self.address = "http://" + open(expanded_path).read()
 
     @ensure_data
     def info(self, id=None, usage={}):
@@ -77,11 +76,11 @@ class Datasets(object):
         return dict(zip(labels, pths))
 
     def create(self, data={}, path=None):
-        uid = requests.get(self.address + "/new").json()
-        requests.post(self.address + "/update/" + uid, json=data)
+        uid = self._ds.new()
+        self._ds.update(uid, data)
         if path is not None:
             data.update({"id": uid.encode("utf-8")})
             yaml.dump(data, open(os.path.join(path, "dataset.yaml"), "w"),
                       default_flow_style=False)
-        requests.post(self.address + "/reload")
+        self._ds.reaload()
         return uid

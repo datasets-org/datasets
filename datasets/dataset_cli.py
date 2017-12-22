@@ -15,24 +15,13 @@ from confobj import ConfigYaml
 from confobj import ConfigEnv
 from confobj import ConfigDict
 
+from .utils import get_config_path
 from .datset_conf import get_ds_id
-
-DATASET_FILENAME = "dataset.yaml"
+from .datset_conf import DATASET_FILENAME
 
 
 def _get_info(ds):
     return ds.project_details(get_ds_id())
-
-
-def _get_config_path(user_conf):
-    expanded_path = os.path.expanduser(user_conf)
-    if os.path.exists(expanded_path):
-        return expanded_path
-    if user_conf != "~/.datasets":
-        print("Config file {} does not exist".format(user_conf))
-        sys.exit(1)
-    else:
-        return
 
 
 def generate(ds, force=False):
@@ -94,7 +83,7 @@ def main():
     changes_p = subparsers.add_parser("changelog")
     args = parser.parse_args()
 
-    conf_path = _get_config_path(args.conf)
+    conf_path = get_config_path(args.conf)
     dict_conf = ConfigDict({})
     if args.server:
         dict_conf = ConfigDict({
