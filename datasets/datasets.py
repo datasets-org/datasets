@@ -82,5 +82,5 @@ class Datasets(object):
             data.update({"id": uid.encode("utf-8")})
             yaml.dump(data, open(os.path.join(path, "dataset.yaml"), "w"),
                       default_flow_style=False)
-        self._ds.reaload()
+        self._ds.reload()
         return uid
