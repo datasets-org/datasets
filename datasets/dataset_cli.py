@@ -26,7 +26,7 @@ def generate(ds, force=False):
     if not force and os.path.exists(DATASET_FILENAME):
         print("File exists, not overwriting without --force")
         sys.exit(1)
-    uid = ds.new()  # todo is it really uid?
+    uid = ds.new()
     yaml.dump({
         "id": uid,
         "name": "",
