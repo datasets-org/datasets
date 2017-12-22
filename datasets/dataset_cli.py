@@ -13,6 +13,7 @@ from datasets_lib import DatasetsConfig
 
 from confobj import ConfigYaml
 from confobj import ConfigEnv
+from confobj import ConfigDict
 
 from .datset_conf import get_ds_id
 
@@ -94,14 +95,16 @@ def main():
     args = parser.parse_args()
 
     conf_path = _get_config_path(args.conf)
-    if conf_path:
-        config_order = (ConfigYaml(conf_path), ConfigEnv())
-    else:
-        config_order = (ConfigEnv(),)
-    ds_cfg = DatasetsConfig(order=config_order)
+    dict_conf = ConfigDict({})
     if args.server:
-        # todo config dict? for override?
-        ds_cfg.host = args.server
+        dict_conf = ConfigDict({
+            "host": args.server
+        })
+    if conf_path:
+        config_order = (ConfigYaml(conf_path), ConfigEnv(), dict_conf)
+    else:
+        config_order = (ConfigEnv(), dict_conf)
+    ds_cfg = DatasetsConfig(order=config_order)
     ds = Datasets(conf=ds_cfg)
     if args.cmd == "new":
         generate(ds, args.force)

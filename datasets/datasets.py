@@ -2,6 +2,8 @@ import os
 
 import requests
 import yaml
+from datasets_lib import Datasets as DatasetsLib
+from datasets_lib import DatasetsConfig
 
 
 def ensure_data(fn):
@@ -28,6 +30,7 @@ def ensure_data(fn):
 
 class Datasets(object):
     def __init__(self, id=None, usage={}, conf={}):
+        # todo find conf
         self.USER_CONF = "~/.datasets"
         self.conf = conf
         self.usage = usage
@@ -36,13 +39,13 @@ class Datasets(object):
         else:
             self.address = self.conf["address"]
 
+        self._ds = DatasetsLib()
         self.data = None
         if id:
             self._load_data(id, usage=usage)
 
-    def _load_data(self, id, usage={}):
-        self.data = requests.post(self.address + "/use/" + id, \
-                                  json=usage).json()
+    def _load_data(self, ds, id, usage={}):
+        self.data = self._ds.use(id, usage)
 
     def _user_server(self):
         expanded_path = os.path.expanduser(self.USER_CONF)

@@ -32,7 +32,7 @@ setup(
         "requests",
         "six",
         "pyYAML",
-        "datasets_lib>=1.2.0"
+        "datasets_lib>=1.2.1"
     ],
     keywords='dataset management',
     packages=[
