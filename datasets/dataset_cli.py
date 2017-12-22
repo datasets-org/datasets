@@ -6,18 +6,16 @@ import sys
 import requests
 import six
 import yaml
-from six.moves import input
-
+from confobj import ConfigDict
+from confobj import ConfigEnv
+from confobj import ConfigYaml
 from datasets_lib import Datasets
 from datasets_lib import DatasetsConfig
+from six.moves import input
 
-from confobj import ConfigYaml
-from confobj import ConfigEnv
-from confobj import ConfigDict
-
-from .utils import get_config_path
-from .datset_conf import get_ds_id
 from .datset_conf import DATASET_FILENAME
+from .datset_conf import get_ds_id
+from .utils import get_config_path
 
 
 def _get_info(ds):
@@ -56,15 +54,20 @@ def scan(ds):
     requests.get(ds.scan())
 
 
-def config():
-    server = input("Server address (example.com): ")
+def config(conf_path):
+    host = input("Server host (example.com): ")
     port = input("Port: ")
-    if not six.u(port).isdecimal():
+    if port and not six.u(port).isdecimal():
         raise Exception("Port should be numeric")
-    # todo
-    with open(os.path.expanduser(USER_CONF), "w") as f:
-        f.write(server + ":" + port)
-    # todo merge yaml
+    conf_path = os.path.expanduser(conf_path)
+    conf = {}
+    if os.path.exists(conf_path):
+        conf = yaml.load(open(conf_path))
+    if port:
+        conf["port"] = int(port)
+    if host:
+        conf["host"] = host
+    yaml.dump(conf, open(conf_path, "w"), default_flow_style=False)
 
 
 def main():
@@ -104,7 +107,7 @@ def main():
     if args.cmd == "scan":
         scan(ds)
     if args.cmd == "config":
-        config()
+        config(args.conf)
     if args.cmd == "changelog":
         changelog(ds)
 
