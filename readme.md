@@ -45,8 +45,7 @@ Python library for interacting with the **Datasets**.
 from datasets import Datasets
 
 ds = Datasets()
-# Without args the address in ~/.datasets will be used or {"addres": 
-"http:localhost:5000"} may be used
+# Without args the address in ~/.datasets will be used or {"addres": "http:localhost:5000"} may be used
 ```
 
 ### Info
